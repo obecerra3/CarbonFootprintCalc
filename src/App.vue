@@ -6,44 +6,50 @@
     <div class="heading"> YOUR CARBON FOOTPRINT </div>
 
     <br />
-
-    <div class="flight_container">
-      <div class="flex_row">
-        <i class="material-icons md-18 icon material flight">airplanemode_active</i>
-        <div class="flex_col">
-          <div class="main_text">Atlanta to New York</div>
-          <div class="sub_text">Tue, Nov 20, 2:34 PM</div>
-        </div>
-        <div class="emissions">1,000 lbs CO2</div>
-        <i class="material-icons md-18">keyboard_arrow_down</i>
-      </div>
-    </div>
-
-    <div class="flight_container">
-      <div class="flex_row">
-        <i class="material-icons md-18 icon material flight">airplanemode_active</i>
-        <div class="flex_col">
-          <div class="main_text">New York to Atlanta</div>
-          <div class="sub_text">Mon, Nov 26, 2:03 PM</div>
-        </div>
-        <div class="emissions">1,300 lbs CO2</div>
-        <i class="material-icons md-18">keyboard_arrow_down</i>
-      </div>
-    </div>
-
-    <hr />
-
-    <div class="total_emissions_container">
-      <div class="flex_row">
-        <i class="material-icons md-18 icon material total">account_balance</i>
-        <div class="flex_col">
-          <div class="flex_row">
-            <div class="main_text">Total CO2 emissions</div>
-            <div class="emissions">2,300 lbs CO2</div>
+    <div v-if="showflights">
+      <div class="flight_container">
+        <div class="flex_row">
+          <i class="material-icons md-18 icon material flight">airplanemode_active</i>
+          <div class="flex_col">
+            <div class="main_text">Atlanta to New York</div>
+            <div class="sub_text">Tue, Nov 20, 2:34 PM</div>
           </div>
-          <div class="sub_text">Equivalent to putting n cars on the road for a year</div>
+          <div class="emissions">1,000 lbs CO2</div>
+          <i class="material-icons md-18">keyboard_arrow_down</i>
         </div>
-        <i class="material-icons md-18 arrow_icon total_emissions_arrow">keyboard_arrow_down</i>
+      </div>
+
+      <div class="flight_container">
+        <div class="flex_row">
+          <i class="material-icons md-18 icon material flight">airplanemode_active</i>
+          <div class="flex_col">
+            <div class="main_text">New York to Atlanta</div>
+            <div class="sub_text">Mon, Nov 26, 2:03 PM</div>
+          </div>
+          <div class="emissions">1,300 lbs CO2</div>
+          <i class="material-icons md-18">keyboard_arrow_down</i>
+        </div>
+      </div>
+
+      <hr />
+
+      <div class="total_emissions_container">
+        <div class="flex_row">
+          <i class="material-icons md-18 icon material total">account_balance</i>
+          <div class="flex_col">
+            <div class="flex_row">
+              <div class="main_text">Total CO2 emissions</div>
+              <div class="emissions">2,300 lbs CO2</div>
+            </div>
+            <div class="sub_text">Equivalent to putting n cars on the road for a year</div>
+          </div>
+          <i class="material-icons md-18 arrow_icon total_emissions_arrow">keyboard_arrow_down</i>
+        </div>
+      </div>
+    </div>
+    <div v-else>
+      <div class="sub_text">
+        No Flights Available
       </div>
     </div>
 
@@ -53,7 +59,28 @@
 
     <br />
 
-    <a href="https://treesatlanta.org/" target="_blank">
+    <span v-html="charityContent"></span>
+    <button v-on:click="addCharities">
+      Add Charity Buttons
+    </button>
+    <button v-on:click="clearCharities">
+      Clear Charity Buttons
+    </button>
+    <button v-on:click="showFlightsToggle">
+      Toggle Flights
+    </button>
+  </div>
+
+</template>
+
+<script>
+export default {
+  name: 'app',
+  data () {
+    return {
+      count: 0,
+      showflights: false,
+      charityContent: `    <a href="https://treesatlanta.org/" target="_blank">
       <div class="donate_button">
         <div class="flex_row">
             <img src="images/trees_atlanta.jpg" class="icon image">
@@ -79,34 +106,46 @@
           <i class="material-icons md-18 arrow_icon donate_arrow">keyboard_arrow_right</i>
         </div>
       </div>
-    </a>
-
-    <h1>Vue Count: {{count}}</h1>
-    <button v-on:click="incrementCount">
-      Increase Count
-    </button>
-  </div>
-
-</template>
-
-<script>
-export default {
-  name: 'app',
-  data () {
-    return {
-      count: 0,
+    </a>`,
     };
   },
   methods: {
-    incrementCount() {
-      this.count += 1;
+    addCharities() {
+      const charities = [['Donate', 'trees', 'Trees Atlanta', 'https://treesatlanta.org/support-us/become-a-donor/'],
+        ['Volunteer', 'hours', 'Sierra Club', 'https://act.sierraclub.org/donate/rc_connect__campaign_designform?id=7010Z0000027DRfQAM&formcampaignid=70131000001Lm6aAAC&ddi=N18ZSCZZ63'],
+        ['Volunteer', 'hours', 'Earth Justice', 'https://secure.earthjustice.org/site/Donation2'],
+        ['Donate', 'trees', 'One Tree Planted', 'https://onetreeplanted.org/collections/where-we-plant']];
+
+        for (var i = 0; i < charities.length; i++) {
+          this.charityContent += `
+            <a href="` + charities[i][3] + `" target="_blank">
+              <div class="donate_button">
+                <div class="flex_row">
+                  <img src="images/trees_atlanta.jpg" class="icon image">
+                  <div class="flex_col">
+                    <div class="main_text">` + charities[i][0] + ` n ` + charities[i][1] + ` to ` + charities[i][2] + ` </div>
+                    <div class="sub_text">1 ` + charities[i][1] + ` offsets n lbs of CO2 </div>
+                  </div>
+                  <i class="material-icons md-18 arrow_icon donate_arrow">keyboard_arrow_right</i>
+                </div>
+              </div>
+            </a>
+
+            <br />`;
+        }
     },
+    clearCharities() {
+      this.charityContent = ``;
+    },
+    showFlightsToggle() {
+      this.showflights = !this.showflights;
+    }
   },
 };
 
 </script>
 
-<style scoped>
+<style>
 
 #app {
   font-family: Helvetica, Arial, sans-serif;

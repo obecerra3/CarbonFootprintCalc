@@ -3,3 +3,5 @@
 
 
 Download then run 'npm install' in the directory and run 'npm run build'. After these steps directory should be loadable as an unpacked extension in chrome.
+
+Current debug buttons clear charities and readd dynamically from list in vue template
