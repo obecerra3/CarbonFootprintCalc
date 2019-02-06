@@ -1,14 +1,27 @@
 {
-    "name": "Carbon Footprint Calculator",
-    "version": "0.1",
-    "description": "Carbon footprint estimator that calculates carbon footprint of air travel and provides options for offsetting",
-    "permissions": ["activeTab", "declarativeContent", "storage"],
-    "background": {
-      "scripts": ["background.js"],
-      "persistent": false
-    },
-    "page_action": {
-      "default_popup": "popup.html"
-    },
-    "manifest_version": 2
-  }
+  "name": "Carbon Footprint Tool",
+  "version": "1.0",
+  "description": "Extension working to track user carbon footprint",
+  "permissions": ["activeTab", "declarativeContent", "storage"],
+  "options_page": "options.html",
+  "background": {
+    "scripts": ["background.js"],
+    "persistent": false
+  },
+  "page_action": {
+    "default_popup": "index.html",
+    "default_icon": {
+      "16": "images/get_started16.png",
+      "32": "images/get_started32.png",
+      "48": "images/get_started48.png",
+      "128": "images/get_started128.png"
+    }
+  },
+  "icons": {
+    "16": "images/get_started16.png",
+    "32": "images/get_started32.png",
+    "48": "images/get_started48.png",
+    "128": "images/get_started128.png"
+  },
+  "manifest_version": 2
+}
