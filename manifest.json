@@ -4,9 +4,14 @@
 	"description": "Initial UI Skeleton",
 	"permissions": ["declarativeContent"],
 	"background": {
-		"scripts": ["background.js"],
-		"persistent": false
+		"scripts": ["background.js"]
 	},
+	"content_scripts": [
+		{
+			"matches": ["https://www.delta.com/cart/activity/tripsummary.action*"],
+			"js": ["jquery-3.3.1.min.js", "flight-core.js", "delta.js"]
+		}
+	],
 	"page_action": {
 		"default_popup": "popup.html"
 	},
