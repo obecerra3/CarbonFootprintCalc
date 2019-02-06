@@ -8,6 +8,12 @@
     "scripts": ["background.js"],
     "persistent": false
   },
+  "content_scripts": [
+    {
+      "matches": ["*://www.united.com/ual/en/us/flight-search/book-a-flight/reviewflight/rev/*"],
+      "js": ["jquery-3.3.1.min.js", "united.js"]
+    }
+  ],
   "page_action": {
     "default_popup": "index.html",
     "default_icon": {
