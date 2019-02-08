@@ -75,5 +75,6 @@ flightDateElems.each(function(index) {
 flights = [];
 for (i = 0; i < flightDates.length; i += 1) {
 	flights.push(new FlightProfile(flightNos[i], flightDates[i]));
-	alert(flights[i].flightNo + " " + flights[i].date + "\nCarbon: " + flights[i].carbonVal);
 }
+
+chrome.runtime.sendMessage({flightProfiles: flights}, function(response) {});
