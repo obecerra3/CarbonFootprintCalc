@@ -3,6 +3,5 @@
 
 To get last built and pushed extension, drag .crx file into your browser.
 
-To build yourself, download then run 'npm install' in the directory and run 'npm run build'. After this, the extension should be loadable as a packed or unpacked extension using the directory 'dist'.
+To build yourself, download then load as unpacked extension at chrome://extensions.
 
-Current debug buttons clear charities and readd dynamically from list in vue template
