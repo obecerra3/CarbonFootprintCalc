@@ -10,8 +10,8 @@
   },
   "content_scripts": [
     {
-      "matches": ["*://www.united.com/ual/en/us/flight-search/book-a-flight/reviewflight/rev/*"],
-      "js": ["jquery-3.3.1.min.js", "united.js"]
+      "matches": ["*://www.united.com/ual/en/us/flight-search/book-a-flight/reviewflight/rev/*", "https://www.southwest.com/air/booking/price.html*"],
+      "js": ["jquery-3.3.1.min.js", "united.js", "southwest.js"]
     }
   ],
   "page_action": {
