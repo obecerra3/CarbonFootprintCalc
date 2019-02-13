@@ -1,19 +1,45 @@
 {
-	"name": "Carbon Footprint Calculator",
-	"version": "0.1",
-	"description": "Initial UI Skeleton",
-	"permissions": ["declarativeContent"],
-	"background": {
-		"scripts": ["background.js"]
-	},
-	"content_scripts": [
-		{
-			"matches": ["https://www.delta.com/cart/activity/tripsummary.action*"],
-			"js": ["jquery-3.3.1.min.js", "flight-core.js", "delta.js"]
-		}
-	],
-	"page_action": {
-		"default_popup": "popup.html"
-	},
-	"manifest_version": 2
+  "name": "Carbon Footprint Tool",
+  "version": "1.0",
+  "description": "Extension working to track user carbon footprint",
+  "permissions": ["activeTab", "declarativeContent", "storage"],
+  "options_page": "options.html",
+  "background": {
+    "scripts": ["background.js"],
+    "persistent": false
+  },
+  "content_scripts": [
+    {
+      "matches": ["*://www.united.com/ual/en/us/flight-search/book-a-flight/reviewflight/rev/*"],
+      "js": ["jquery-3.3.1.min.js", "flight-core.js", "united.js"]
+    },
+    {
+      "matches": ["https://www.southwest.com/air/booking/price.html*"],
+      "js": ["jquery-3.3.1.min.js", "flight-core.js", "southwest.js"]
+    },
+    {
+      "matches": ["https://www.delta.com/cart/activity/tripsummary.action*"],
+      "js": ["jquery-3.3.1.min.js", "flight-core.js", "delta.js"]
+    },
+    {
+      "matches": [ "*://www.aa.com/booking/flights/choose-flights/your-trip-summary*" ],
+      "js": ["jquery-3.3.1.min.js", "flight-core.js", "american.js"]
+    }
+  ],
+  "page_action": {
+    "default_popup": "index.html",
+    "default_icon": {
+      "16": "images/get_started16.png",
+      "32": "images/get_started32.png",
+      "48": "images/get_started48.png",
+      "128": "images/get_started128.png"
+    }
+  },
+  "icons": {
+    "16": "images/get_started16.png",
+    "32": "images/get_started32.png",
+    "48": "images/get_started48.png",
+    "128": "images/get_started128.png"
+  },
+  "manifest_version": 2
 }
