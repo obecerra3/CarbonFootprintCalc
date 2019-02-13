@@ -10,8 +10,16 @@
   },
   "content_scripts": [
     {
-      "matches": ["*://www.united.com/ual/en/us/flight-search/book-a-flight/reviewflight/rev/*", "https://www.southwest.com/air/booking/price.html*"],
-      "js": ["jquery-3.3.1.min.js", "united.js", "southwest.js"]
+      "matches": ["*://www.united.com/ual/en/us/flight-search/book-a-flight/reviewflight/rev/*"],
+      "js": ["jquery-3.3.1.min.js", "flight-core.js", "united.js"]
+    },
+    {
+      "matches": ["https://www.southwest.com/air/booking/price.html*"],
+      "js": ["jquery-3.3.1.min.js", "flight-core.js", "southwest.js"]
+    },
+    {
+      "matches": ["https://www.delta.com/cart/activity/tripsummary.action*"],
+      "js": ["jquery-3.3.1.min.js", "flight-core.js", "delta.js"]
     }
   ],
   "page_action": {
