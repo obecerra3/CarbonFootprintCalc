@@ -1,16 +1,25 @@
-// Copyright 2018 The Chromium Authors. All rights reserved.
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-
 'use strict';
 
 chrome.runtime.onInstalled.addListener(function() {
   chrome.declarativeContent.onPageChanged.removeRules(undefined, function() {
     chrome.declarativeContent.onPageChanged.addRules([{
-      conditions: [new chrome.declarativeContent.PageStateMatcher({
+      conditions: [
+      new chrome.declarativeContent.PageStateMatcher({
         pageUrl: {hostEquals: 'www.google.com'},
+      }),
+      new chrome.declarativeContent.PageStateMatcher({
+        pageUrl: {hostEquals: 'www.united.com'},
       })],
       actions: [new chrome.declarativeContent.ShowPageAction()]
     }]);
   });
 });
+
+chrome.runtime.onMessage.addListener(
+function(request, sender, sendResponse) {
+    chrome.storage.local.set({flightProfiles: request.flightProfiles}, function() {
+      console.log('flightProfiles stored');
+    });
+});
+
+

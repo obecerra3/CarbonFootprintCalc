@@ -3,12 +3,11 @@
   <head>
     <meta charset="utf-8">
     <title>cfc</title>
+    <script src="jquery-3.3.1.min.js"></script>
+    <script src="popup.js"></script>
   </head>
   <body>
      <div id="app">
-        <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
-          rel="stylesheet">
-
         <div class="heading"> YOUR CARBON FOOTPRINT </div>
 
         <br />
@@ -18,7 +17,7 @@
               <i class="material-icons md-18 icon material flight">airplanemode_active</i>
               <div class="flex_col">
                 <div class="main_text">Atlanta to New York</div>
-                <div class="sub_text">Tue, Nov 20, 2:34 PM</div>
+                <div class="sub_text flight_date">Tue, Nov 20, 2:34 PM</div>
               </div>
               <div class="emissions">1,000 lbs CO2</div>
               <i class="material-icons md-18">keyboard_arrow_down</i>
@@ -30,7 +29,7 @@
               <i class="material-icons md-18 icon material flight">airplanemode_active</i>
               <div class="flex_col">
                 <div class="main_text">New York to Atlanta</div>
-                <div class="sub_text">Mon, Nov 26, 2:03 PM</div>
+                <div class="sub_text flight_date">Mon, Nov 26, 2:03 PM</div>
               </div>
               <div class="emissions">1,300 lbs CO2</div>
               <i class="material-icons md-18">keyboard_arrow_down</i>
@@ -86,8 +85,8 @@
           </div>
         </a>
     </div>
-    <script src="/build.js"></script>
   </body>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <style>
     #app {
       font-family: Helvetica, Arial, sans-serif;

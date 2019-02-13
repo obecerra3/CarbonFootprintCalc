@@ -5,7 +5,7 @@
   "permissions": ["activeTab", "declarativeContent", "storage"],
   "options_page": "options.html",
   "background": {
-    "scripts": ["background.js"],
+    "scripts": ["jquery-3.3.1.min.js", "background.js"],
     "persistent": false
   },
   "content_scripts": [
