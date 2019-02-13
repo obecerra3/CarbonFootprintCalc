@@ -78,9 +78,14 @@ function buildFlights() {
     chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
         chrome.tabs.sendMessage(tabs[0].id, {task: "united"}, function(response) {
             var flight_dates = $('.flight_date');
-            for (var i = 0; i < response.flightProfiles.length; i++) {
-                var flight_date = new Date(response.flightProfiles[i]._date);
-                $(flight_dates[i]).html(buildFlightString(flight_date));
+            var flight_containers = $('.flight_container');
+            if (response != undefined) {
+                $('.no_flights').hide();
+                for (var i = 0; i < response.flightProfiles.length; i++) {
+                    var flight_date = new Date(response.flightProfiles[i]._date);
+                    $(flight_dates[i]).html(buildFlightString(flight_date));
+                    $(flight_containers[i]).show();
+                }
             }
         });
     });
