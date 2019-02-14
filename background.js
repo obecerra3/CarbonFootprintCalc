@@ -9,6 +9,9 @@ chrome.runtime.onInstalled.addListener(function() {
       }),
       new chrome.declarativeContent.PageStateMatcher({
         pageUrl: {hostEquals: 'www.united.com'},
+      }),
+      new chrome.declarativeContent.PageStateMatcher({
+        pageUrl: {urlContains: 'www.aa.com/booking/flights/choose-flights/your-trip-summary'},
       })],
       actions: [new chrome.declarativeContent.ShowPageAction()]
     }]);

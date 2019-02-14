@@ -78,7 +78,7 @@ function buildFlights() {
     chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
         const tab = tabs[0];
         const url = tab.url;
-        if (url.indexOf("www.united.com/ual/en/us/flight-search/book-a-flight/reviewflight/rev/")) {
+        if (url.indexOf('www.united.com/ual/en/us/flight-search/book-a-flight/reviewflight/rev') !== -1) {
             chrome.tabs.sendMessage(tab.id, {task: "united"}, function(response) {
                 var flight_dates = $('.flight_date');
                 for (var i = 0; i < response.flightProfiles.length; i++) {
@@ -95,8 +95,6 @@ function buildFlights() {
                 }
             });
         }
-
-
     });
 }
 
