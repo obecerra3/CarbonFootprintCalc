@@ -76,13 +76,27 @@ function buildFlights() {
     // listener in united.js, which responds with the flight data.
     // Dom then is directly manipulated using jquery of the popup.
     chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
-        chrome.tabs.sendMessage(tabs[0].id, {task: "united"}, function(response) {
-            var flight_dates = $('.flight_date');
-            for (var i = 0; i < response.flightProfiles.length; i++) {
-                var flight_date = new Date(response.flightProfiles[i]._date);
-                $(flight_dates[i]).html(buildFlightString(flight_date));
-            }
-        });
+        const tab = tabs[0];
+        const url = tab.url;
+        if (url.indexOf("www.united.com/ual/en/us/flight-search/book-a-flight/reviewflight/rev/")) {
+            chrome.tabs.sendMessage(tab.id, {task: "united"}, function(response) {
+                var flight_dates = $('.flight_date');
+                for (var i = 0; i < response.flightProfiles.length; i++) {
+                    var flight_date = new Date(response.flightProfiles[i]._date);
+                    $(flight_dates[i]).html(buildFlightString(flight_date));
+                }
+            });
+        } else if (url.indexOf('www.aa.com/booking/flights/choose-flights/your-trip-summary') !== -1) {
+            chrome.tabs.sendMessage(tab.id, {task: "american"}, function(response) {
+                var flight_dates = $('.flight_date');
+                for (var i = 0; i < response.flightProfiles.length; i++) {
+                    var flight_date = new Date(response.flightProfiles[i]._date);
+                    $(flight_dates[i]).html(buildFlightString(flight_date));
+                }
+            });
+        }
+
+
     });
 }
 
