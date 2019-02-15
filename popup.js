@@ -104,9 +104,7 @@ function buildFlights() {
 			}
 		});
 	});
-	
-	
-}
+	}
 
 $(document).ready(() => {
   buildFlights();
