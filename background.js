@@ -5,7 +5,7 @@ chrome.runtime.onInstalled.addListener(function() {
     chrome.declarativeContent.onPageChanged.addRules([{
       conditions: [
       new chrome.declarativeContent.PageStateMatcher({
-        pageUrl: {hostEquals: 'www.google.com'},
+        pageUrl: {hostEquals: 'www.delta.com'},
       }),
       new chrome.declarativeContent.PageStateMatcher({
         pageUrl: {hostEquals: 'www.united.com'},
