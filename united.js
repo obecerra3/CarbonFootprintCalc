@@ -16,15 +16,16 @@ function pull_flight_info() {
 	var flight_numbers = $(".segment-flight-number");
 	$('.segment-aircraft-type').find('span').remove()
 	var flight_aircrafts = $(".segment-aircraft-type");
+	var airport_codes = $(".dc-trip");
 	for (var i = 0; i < flight_blocks.length; i++) {
-		/*let flight_string = "Flight " + (i+1) + "\n";
-		flight_string += $(flight_dates[i]).text() + "\n";
-		flight_string += $(flight_departures[i]).text().trim() + " " + $(flight_arrivals[i]).text().trim() + "\n";
-		flight_string += "Total Flight Time: " + $(flight_durations[i]).text() + "\n";
-		flight_string += $(flight_origins[i]).text() + " to " + $(flight_destinations[i]).text() + "\n";
-		flight_string += "Flight Number: " + " " + $(flight_numbers[i]).text().trim() + "\n";
-		flight_string += "Flight Aircraft: " + " " + $(flight_aircrafts[i]).text().trim() + "\n";
-		alert(flight_string);*/
+		// Pick up flight code
+		var flight_no = $(flight_numbers[i]).text().trim();
+
+		// Pick up depart/arrive airport codes
+		var depart_code = $(airport_codes[i]).text().substring(0, 3);
+		var arrive_code = $(airport_codes[i]).text().substring(6, 9);
+
+		// Pick up flight time then parse into date object
 		var date_info = $(flight_dates[i]).text().toUpperCase().replace(/,/g, ' ').split(/\s+/);
 		var time_info = $(flight_departures[i]).text().trim().replace(/:/g, ' ').split(/\s+/);
 		var flight_date = new Date($(flight_dates[i]).text());
@@ -33,10 +34,17 @@ function pull_flight_info() {
 		}
 		flight_date.setHours(time_info[0]);
 		flight_date.setMinutes(time_info[1]);
-		flights.push(new FlightProfile($(flight_numbers[i]).text().trim(), flight_date));
+
+		// Pick up Airline name
+		var airline = "United";
+
+		// Pick up Aircraft
+		var aircraft = $(flight_aircrafts[i]).text().trim();
+
+		// Pick up ticket class
+		var ticket_class = 1;
+
+		flights.push(new FlightProfile(flight_no, depart_code, arrive_code, flight_date, airline, aircraft, ticket_class));
 	}
 }
-// Messaging set up for listener; when popup.js loads, it sends out a message
-// request asking for flight profiles. This listener responds and sends the
-// flights out. The popup.js then manipulates it into the extension.
 $(document).ready(pull_flight_info);

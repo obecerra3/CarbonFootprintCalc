@@ -83,18 +83,50 @@ function buildFlights() {
 			var flight_dates = $('.flight_date');
 			var flight_airports = $('.flight_airport');
 			var flight_containers = $('.flight_container');
+            var flight_emissions = $('.emissions');
+            var total_emissions = $('.total_emissions');
+            var totalCarbonAmt = 0;
 			if (response != undefined) {
-				$('no_flights').hide();
+				$('.no_flights').hide();
 				for (var i = 0; i < response.newFlightsKey.length; i++) {
 					console.log(response.newFlightsKey[i]._date);
+                    var carbonAmt = response.newFlightsKey[i]._carbonVal;
+                    totalCarbonAmt += carbonAmt;
 					var flight_date = new Date(response.newFlightsKey[i]._date);
 					$(flight_dates[i]).html(buildFlightString(flight_date));
 					$(flight_airports[i]).html(response.newFlightsKey[i]._depart + " to " + response.newFlightsKey[i]._arrival);
+                    $(flight_emissions[i]).html(carbonAmt + " lbs CO2");
 					$(flight_containers[i]).show();
 				}
+                $(total_emissions[0]).html(totalCarbonAmt + " lbs CO2");
+                generalizeCarbonContexts(totalCarbonAmt);
 			}
 		});
 	});
+}
+
+// Info taken from epa.gov
+// https://www.epa.gov/energy/greenhouse-gases-equivalencies-calculator-calculations-and-references
+var equivalencies = [["a car on the road for ", 1.1, " miles."],
+    ["", 0.496, " pounds of coal burned."],
+    ["", 57.8, " smartphones charged."]];
+
+function generalizeCarbonContexts(totalCarbonAmt) {
+    // Total Emissions Equivalency
+    var equivalency_string = "Equivalent to ";
+    var rand_num = Math.floor(Math.random() * 3);
+
+    var equivalency = equivalencies[rand_num];
+    equivalency_string += equivalency[0] + (totalCarbonAmt*equivalency[1]).toFixed(2) + equivalency[2];
+    $(".total_emissions_equivalency").html(equivalency_string);
+
+    // Trees Atlanta
+    // 1 tree = 9,480 lbs of CO2
+    $(".trees_num").html((totalCarbonAmt/9480).toFixed(2));
+
+    // Volunteer Example Charity
+    // 1 hour = 2,000 lbs of CO2
+    $(".volunteer_num").html((totalCarbonAmt/2000).toFixed(2));
 }
 
 $(document).ready(() => {
