@@ -95,7 +95,17 @@ function buildFlights() {
                 }
             });
         }
-    });
+		chrome.tabs.sendMessage(tab.id, {task: 'flights'}, function(response) {
+			var flight_dates = $('.flight_date');
+			console.log("New flights recieved");
+			for (var i = 0; i < response.newFlights.length; i++) {
+				var flight_date = new Date(response.newFlights[i]._date);
+				$(flight_dates[i]).html(buildFlightString(flight_date));
+			}
+		});
+	});
+	
+	
 }
 
 $(document).ready(() => {

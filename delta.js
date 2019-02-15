@@ -77,4 +77,3 @@ for (i = 0; i < flightDates.length; i += 1) {
 	flights.push(new FlightProfile(flightNos[i], flightDates[i]));
 }
 
-chrome.runtime.sendMessage({flightProfiles: flights}, function(response) {});

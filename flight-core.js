@@ -43,53 +43,79 @@ class CarbonCalcuationStep {
 		  return this.pre + " " + this.op + " " + this.modder + " = " + this.post;
 	  }
 	  
-  }
-  
-  class FlightProfile {
-	  
-	  constructor(flightNo, date) {
-		  this.flightNo = flightNo;
-		  this.date = date;
-		  this.calcSteps = this.genCalcSteps();
-		  this.carbonVal = this.calcSteps[this.calcSteps.length - 1].post;
-	  }
-	  
-	  genCalcSteps() {
-		  let arr = new Array(1);
-		  arr[0] = new CarbonCalcuationStep(3, 9, '*', 27);
-		  return arr;
-	  }
-	  
-	  set flightNo(flightNo) {
-		  this._flightNo = flightNo;
-	  }
-	  
-	  set date(date) {
-		  this._date = date;
-	  }
-	  
-	  set calcSteps(calcSteps) {
-		  this._calcSteps = calcSteps;
-	  }
-	  
-	  set carbonVal(carbonVal) {
-		  this._carbonVal = carbonVal;
-	  }
-	  
-	  get date() {
-		  return this._date;
-	  }
-	  
-	  get flightNo() {
-		  return this._flightNo;
-	  }
-	  
-	  get calcSteps() {
-		  return this._calcSteps;
-	  }
-	  
-	  get carbonVal() {
-		  return this._carbonVal;
-	  }
-	  
-  }
+}
+
+var newFlights = [];
+
+class FlightProfile {
+
+	constructor(flightNo, date, aircraft) {
+		
+		this.flightNo = flightNo;
+		this.date = date;
+		this.aircraft = aircraft;
+		this.calcSteps = this.genCalcSteps();
+		this.carbonVal = this.calcSteps[this.calcSteps.length - 1].post;
+		
+		newFlights.push(this);
+	}
+
+	genCalcSteps() {
+		let arr = new Array(1);
+		arr[0] = new CarbonCalcuationStep(3, 9, '*', 27);
+		return arr;
+	}
+
+	set flightNo(flightNo) {
+		this._flightNo = flightNo;
+	}
+
+	set date(date) {
+		this._date = date;
+	}
+
+	set aircraft(aircraft) {
+		this._aircraft = aircraft;
+	}
+
+	set calcSteps(calcSteps) {
+		this._calcSteps = calcSteps;
+	}
+
+	set carbonVal(carbonVal) {
+		this._carbonVal = carbonVal;
+	}
+
+	get date() {
+		return this._date;
+	}
+
+	get aircraft() {
+		return this._aircraft;
+	}
+
+	get flightNo() {
+		return this._flightNo;
+	}
+
+	get calcSteps() {
+		return this._calcSteps;
+	}
+
+	get carbonVal() {
+		return this._carbonVal;
+	}
+
+}
+ 
+chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+	if (message.task === 'flights') {
+		var flights = [];
+		for (let flight of newFlights) {
+			flights.push(flight);
+		}
+		console.log("Sending new flights");
+		newFlights = [];
+		sendResponse({newFlights: flights});
+	}
+})
