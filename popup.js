@@ -94,6 +94,16 @@ function buildFlights() {
                     $(flight_dates[i]).html(buildFlightString(flight_date));
                 }
             });
+        } else if (url.indexOf('https://www.southwest.com/air/booking/price.html') !== -1) {
+            chrome.tabs.sendMessage(tab.id, {task: "southwest"}, function(response) {
+                var flight_dates = $('.flight_date');
+                var flight_airports = $('.flight_airport');
+                for (var i = 0; i < response.flightProfiles.length; i++) {
+                    var flight_date = new Date(response.flightProfiles[i]._date);
+                    $(flight_dates[i]).html(buildFlightString(flight_date));
+                    $(flight_airports[i]).html(response.flightProfiles[i]._departureAirportCode + " to " + response.flightProfiles[i]._arrivalAirportCode);
+                }
+            });
         }
 		chrome.tabs.sendMessage(tab.id, {task: 'flights'}, function(response) {
 			var flight_dates = $('.flight_date');
@@ -104,8 +114,8 @@ function buildFlights() {
 			}
 		});
 	});
-	
-	
+
+
 }
 
 $(document).ready(() => {

@@ -12,6 +12,9 @@ chrome.runtime.onInstalled.addListener(function() {
       }),
       new chrome.declarativeContent.PageStateMatcher({
         pageUrl: {urlContains: 'www.aa.com/booking/flights/choose-flights/your-trip-summary'},
+      }),
+      new chrome.declarativeContent.PageStateMatcher({
+        pageUrl: {hostEquals: 'www.southwest.com'},
       })],
       actions: [new chrome.declarativeContent.ShowPageAction()]
     }]);
