@@ -19,11 +19,11 @@
     },
     {
       "matches": ["https://www.delta.com/cart/activity/tripsummary.action*"],
-      "js": ["jquery-3.3.1.min.js", "flight-core.js", "delta.js"]
+      "js": ["jquery-3.3.1.min.js",  "flight-core.js", "delta.js"]
     },
     {
       "matches": [ "*://www.aa.com/booking/flights/choose-flights/your-trip-summary*" ],
-      "js": ["jquery-3.3.1.min.js", "flight-core.js", "american.js"]
+      "js": ["jquery-3.3.1.min.js",  "flight-core.js", "american.js"]
     }
   ],
   "page_action": {

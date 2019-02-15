@@ -89,7 +89,7 @@ function buildFlights() {
 					console.log(response.newFlightsKey[i]._date);
 					var flight_date = new Date(response.newFlightsKey[i]._date);
 					$(flight_dates[i]).html(buildFlightString(flight_date));
-					$(flight_airports[i]).html(response.newFlightsKey[i]._departureAirportCode + " to " + response.newFlightsKey[i]._arrivalAirportCode);
+					$(flight_airports[i]).html(response.newFlightsKey[i]._depart + " to " + response.newFlightsKey[i]._arrival);
 					$(flight_containers[i]).show();
 				}
 			}

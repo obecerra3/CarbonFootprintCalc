@@ -46,21 +46,35 @@ class CarbonCalcuationStep {
 }
 
 var newFlights = [];
-
+/** Class representing the profile of a flight */
 class FlightProfile {
-
-	constructor(flightNo, date, aircraft, departureAirportCode, arrivalAirportCode) {
-
+	/**
+	 * Create a flight profile
+	 * @param {string} 	flightNo 	the flight number
+	 * @param {string}	depart 		the IATA code for departure airport
+	 * @param {string} 	arrival 	the IATA code for arrival airport
+	 * @param {Date} 	date 		the departure time
+	 * @param {string} 	airline 	the airline name
+	 * @param {string} 	aircraft 	the aircraft model
+	 * @param {number}  ticketClass the ticket class
+	 *                              0: economy
+	 *                              1: economy plus
+	 *                              2: business
+	 *                              3: first
+	 */
+	constructor(flightNo, depart, arrival, date, airline, aircraft, ticketClass) {
 		this.flightNo = flightNo;
+		this.depart = depart;
+		this.arrival = arrival;
 		this.date = date;
-		this.aircraft = aircraft;
+		this.airline = airline;
+		this.ticketClass = ticketClass;
 		this.calcSteps = this.genCalcSteps();
 		this.carbonVal = this.calcSteps[this.calcSteps.length - 1].post;
-		this.departureAirportCode = departureAirportCode;
-		this.arrivalAirportCode = arrivalAirportCode;
 
 		newFlights.push(this);
 	}
+
 
 	genCalcSteps() {
 		let arr = new Array(1);
@@ -72,12 +86,28 @@ class FlightProfile {
 		this._flightNo = flightNo;
 	}
 
+	set depart(depart) {
+		this._depart = depart;
+	}
+
+	set arrival(arrival) {
+		this._arrival = arrival;
+	}
+
 	set date(date) {
 		this._date = date;
 	}
 
+	set airline(airline) {
+		this._airline = airline;
+	}
+
 	set aircraft(aircraft) {
 		this._aircraft = aircraft;
+	}
+
+	set ticketClass(ticketClass) {
+		this._ticketClass = ticketClass;
 	}
 
 	set calcSteps(calcSteps) {
@@ -88,13 +118,19 @@ class FlightProfile {
 		this._carbonVal = carbonVal;
 	}
 
-	set departureAirportCode(dCode) {
-		this._departureAirportCode = dCode;
+
+	get flightNo() {
+		return this._flightNo;
 	}
 
-	set arrivalAirportCode(aCode) {
-		this._arrivalAirportCode = aCode;
+	get depart() {
+		return this._depart;
 	}
+
+	get arrival() {
+		return this._arrival;
+	}
+
 
 	get date() {
 		return this._date;
@@ -104,8 +140,8 @@ class FlightProfile {
 		return this._aircraft;
 	}
 
-	get flightNo() {
-		return this._flightNo;
+	get ticketClass() {
+		return this._ticketClass;
 	}
 
 	get calcSteps() {
@@ -115,15 +151,6 @@ class FlightProfile {
 	get carbonVal() {
 		return this._carbonVal;
 	}
-
-	get departureAirportCode() {
-		return this._departureAirportCode;
-	}
-
-	get arrivalAirportCode() {
-		return this._arrivalAirportCode;
-	}
-
 
 }
 
