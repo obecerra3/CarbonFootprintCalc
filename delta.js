@@ -74,6 +74,6 @@ flightDateElems.each(function(index) {
 
 flights = [];
 for (i = 0; i < flightDates.length; i += 1) {
-	flights.push(new FlightProfile(flightNos[i], flightDates[i]));
+	flights.push(new FlightProfile(flightNos[i], flightDates[i], null, null, null));
 }
 

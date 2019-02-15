@@ -66,9 +66,3 @@ function scan_flight_data() {
 }
 
 $(document).ready(scan_flight_data)
-
-chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
-    if (message.task === 'american') {
-        sendResponse({ flightProfiles: trips})
-    }
-})

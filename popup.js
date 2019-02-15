@@ -78,39 +78,20 @@ function buildFlights() {
     chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
         const tab = tabs[0];
         const url = tab.url;
-        if (url.indexOf('www.united.com/ual/en/us/flight-search/book-a-flight/reviewflight/rev') !== -1) {
-            chrome.tabs.sendMessage(tab.id, {task: "united"}, function(response) {
-                var flight_dates = $('.flight_date');
-                for (var i = 0; i < response.flightProfiles.length; i++) {
-                    var flight_date = new Date(response.flightProfiles[i]._date);
-                    $(flight_dates[i]).html(buildFlightString(flight_date));
-                }
-            });
-        } else if (url.indexOf('www.aa.com/booking/flights/choose-flights/your-trip-summary') !== -1) {
-            chrome.tabs.sendMessage(tab.id, {task: "american"}, function(response) {
-                var flight_dates = $('.flight_date');
-                for (var i = 0; i < response.flightProfiles.length; i++) {
-                    var flight_date = new Date(response.flightProfiles[i]._date);
-                    $(flight_dates[i]).html(buildFlightString(flight_date));
-                }
-            });
-        } else if (url.indexOf('https://www.southwest.com/air/booking/price.html') !== -1) {
-            chrome.tabs.sendMessage(tab.id, {task: "southwest"}, function(response) {
-                var flight_dates = $('.flight_date');
-                var flight_airports = $('.flight_airport');
-                for (var i = 0; i < response.flightProfiles.length; i++) {
-                    var flight_date = new Date(response.flightProfiles[i]._date);
-                    $(flight_dates[i]).html(buildFlightString(flight_date));
-                    $(flight_airports[i]).html(response.flightProfiles[i]._departureAirportCode + " to " + response.flightProfiles[i]._arrivalAirportCode);
-                }
-            });
-        }
 		chrome.tabs.sendMessage(tab.id, {task: 'flights'}, function(response) {
+			console.log("New flights recieved " + response.newFlightsKey.length);
 			var flight_dates = $('.flight_date');
-			console.log("New flights recieved");
-			for (var i = 0; i < response.newFlights.length; i++) {
-				var flight_date = new Date(response.newFlights[i]._date);
-				$(flight_dates[i]).html(buildFlightString(flight_date));
+			var flight_airports = $('.flight_airport');
+			var flight_containers = $('.flight_container');
+			if (response != undefined) {
+				$('no_flights').hide();
+				for (var i = 0; i < response.newFlightsKey.length; i++) {
+					console.log(response.newFlightsKey[i]._date);
+					var flight_date = new Date(response.newFlightsKey[i]._date);
+					$(flight_dates[i]).html(buildFlightString(flight_date));
+					$(flight_airports[i]).html(response.newFlightsKey[i]._departureAirportCode + " to " + response.newFlightsKey[i]._arrivalAirportCode);
+					$(flight_containers[i]).show();
+				}
 			}
 		});
 	});

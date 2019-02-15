@@ -40,8 +40,3 @@ function pull_flight_info() {
 // request asking for flight profiles. This listener responds and sends the
 // flights out. The popup.js then manipulates it into the extension.
 $(document).ready(pull_flight_info);
-chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
-  if (message.task === 'united') {
-    sendResponse({ flightProfiles: flights });
-  }
-});

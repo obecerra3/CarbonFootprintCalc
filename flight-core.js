@@ -114,8 +114,9 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
 		for (let flight of newFlights) {
 			flights.push(flight);
 		}
+		console.log(flights);
 		console.log("Sending new flights");
 		newFlights = [];
-		sendResponse({newFlights: flights});
+		sendResponse({newFlightsKey: flights});
 	}
 })
