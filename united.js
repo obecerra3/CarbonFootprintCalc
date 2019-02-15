@@ -2,7 +2,7 @@ var flights = [];
 
 function pull_flight_info() {
 
-	var flight_blocks = $(".flight-block");
+	var flight_blocks = $(".cart-trip-summary");
 	var flight_dates = $(".flight-summary-date");
 	$('.flight-time-depart').find('span').remove()
 	var flight_departures = $(".flight-time-depart");
