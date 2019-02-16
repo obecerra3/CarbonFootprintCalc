@@ -91,17 +91,18 @@ function buildFlights() {
 				$('.no_flights').hide();
 				for (var i = 0; i < response.newFlightsKey.length; i++) {
 					console.log(response.newFlightsKey[i]._date);
-                    var carbonAmt = response.newFlightsKey[i]._carbonVal;
+                    var carbonAmt = emissionCalc(response.newFlightsKey[i]);
                     totalCarbonAmt += carbonAmt;
 					var flight_date = new Date(response.newFlightsKey[i]._date);
 					$(flight_dates[i]).html(buildFlightString(flight_date));
 					$(flight_airports[i]).html(response.newFlightsKey[i]._depart + " to " + response.newFlightsKey[i]._arrival);
 
-                    $(flight_emissions[i]).html(carbonAmt + " lbs CO2");
+                    $(flight_emissions[i]).html(carbonAmt + " lbs CO2e");
+
 					$(flight_containers[i]).show();
 
 				}
-                $(total_emissions[0]).html(totalCarbonAmt + " lbs CO2");
+                $(total_emissions[0]).html(totalCarbonAmt + " lbs CO2e");
                 generalizeCarbonContexts(totalCarbonAmt);
 			}
 		});

@@ -9,12 +9,22 @@ var emissionFactors = [[0.14678, 0.16508, 0.27867],
 
 /**
  * Converts angle in degrees to radians
- * @param {number} angle in degrees
- * @return {number} angle in radians
+ * @param   {number} degree     angle in degrees
+ * @return  {number}            angle in radians
  */
 function deg2rad(degree) {
     return degree * (Math.PI / 180);
 }
+
+/**
+ * Converts mass in kg to lbs
+ * @param   {number}    mass    mass in kg
+ * @return  {number}            mass in lbs
+ */
+function kg2lbs(mass) {
+    return mass * 2.20462262185;
+}
+
 
 /**
  * Calculates the great circle distance between two points, point 1 and point 2
@@ -63,6 +73,9 @@ function emissionCalc(flightProfile) {
     var iata2 = flightProfile._arrival;
     var aircraft = flightProfile._aircraft;
     var cabinType = flightProfile._ticketClass;
+
+
+
     // 1. Lookup lat/lng of start airport and end airport
     var depart = airports[iata1];
     var lon1 = depart["longitude"];
@@ -100,6 +113,8 @@ function emissionCalc(flightProfile) {
 
     // 8. Multiply greenhouse gases produced (kg CO2e) by 1.9 to account for
     // radiative forcing
-    return greenhouseGasProduced * 1.9;
+
+    return Math.round(kg2lbs(greenhouseGasProduced * 1.9));
+
 }
 
