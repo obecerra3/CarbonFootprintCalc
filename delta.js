@@ -133,13 +133,6 @@ function pullFlightInfo() {
 			flightClasses.push(0);
 		}
 	});
-
-	alert(flightNos);
-	alert(flightDepart);
-	alert(flightArrive);
-	alert(flightDates);
-	alert(flightAircrafts);
-	alert(flightClasses);
 	
 	flights = [];
 	for (i = 0; i < flightDates.length; i += 1) {
