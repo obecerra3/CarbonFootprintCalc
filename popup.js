@@ -82,6 +82,7 @@ function buildFlights() {
 			console.log("New flights recieved " + response.newFlightsKey.length);
 			var flight_dates = $('.flight_date');
 			var flight_airports = $('.flight_airport');
+            var emissions = $('.emissions');
 			var flight_containers = $('.flight_container');
 			if (response != undefined) {
 				$('no_flights').hide();
@@ -90,7 +91,8 @@ function buildFlights() {
 					var flight_date = new Date(response.newFlightsKey[i]._date);
 					$(flight_dates[i]).html(buildFlightString(flight_date));
 					$(flight_airports[i]).html(response.newFlightsKey[i]._depart + " to " + response.newFlightsKey[i]._arrival);
-					$(flight_containers[i]).show();
+					$(emissions[i]).html(Math.round(emissionCalc(response.newFlightsKey[i])) + " kg CO2e");
+                    $(flight_containers[i]).show();
 				}
 			}
 		});
