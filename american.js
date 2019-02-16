@@ -23,7 +23,7 @@ function scan_flight_data() {
         console.log(time_info);
         let hr_min = time_info[0].split(":");
         let am_pm = time_info[1].trim();
-        let hr = (am_pm == "PM") ? Number(hr_min[0]) + 12 : Number(hr_min[0]);
+        let hr = (am_pm == "PM" && Number(hr_min[0]) !== 12) ? Number(hr_min[0]) + 12 : Number(hr_min[0]);
         let min = Number(hr_min[1]);
         let time = hr.toString() + ":" + min.toString() + ":00";
         console.log(time)

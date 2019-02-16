@@ -9,12 +9,22 @@ var emissionFactorsTable = [[0.14678, 0.16508, 0.27867],
 
 /**
  * Converts angle in degrees to radians
- * @param {number} angle in degrees
- * @return {number} angle in radians
+ * @param   {number} degree     angle in degrees
+ * @return  {number}            angle in radians
  */
 function deg2rad(degree) {
     return degree * (Math.PI / 180);
 }
+
+/**
+ * Converts mass in kg to lbs
+ * @param   {number}    mass    mass in kg
+ * @return  {number}            mass in lbs
+ */
+function kg2lbs(mass) {
+    return mass * 2.20462262185;
+}
+
 
 /**
  * Calculates the great circle distance between two points, point 1 and point 2
@@ -55,13 +65,15 @@ function categorizeDistance(dist) {
 
 /**
  * Calculates the carbon emission of a flight by the passenger
- * @param {string} iata1 iata code of the start airport
- * @param {string} iata2 iata code of the end airport
- * @param {string} aircraft aircraft used for the flight
- * @param {number} cabinType ticket class of the flight
+ * @param {flightProfile} flightProfile profile of the flight
  * @return {number} the carbon emission by the passenger in kg CO2e
  */
-function emissionCalc(iata1, iata2, aircraft, cabinType) {
+function emissionCalc(flightProfile) {
+    var iata1 = flightProfile._depart;
+    var iata2 = flightProfile._arrival;
+    var aircraft = flightProfile._aircraft;
+    var cabinType = flightProfile._ticketClass;
+
     // 1. Lookup lat/lng of start airport and end airport
     var depart = airports[iata1];
     var lon1 = depart["longitude"];
@@ -94,10 +106,10 @@ function emissionCalc(iata1, iata2, aircraft, cabinType) {
     // 7. Multiply passenger-kilometers (passenger-km) with emissions factor
     // (kg CO2e / passenger-km) to calculate the amount of greenhouse gases
     // produced (kg CO2e)
-    var greenhouseGasProduced = passengerKilo * emissionFactor
+    var greenhouseGasProduced = passengerKilo * emissionFactor;
 
     // 8. Multiply greenhouse gases produced (kg CO2e) by 1.9 to account for
     // radiative forcing
-    return greenhouseGasProduced * 1.9
+    return Math.round(kg2lbs(greenhouseGasProduced * 1.9));
 }
 
