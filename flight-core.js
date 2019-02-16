@@ -162,7 +162,6 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
 		}
 		console.log(flights);
 		console.log("Sending new flights");
-		newFlights = [];
 		sendResponse({newFlightsKey: flights});
 	}
 })

@@ -31,19 +31,7 @@
             <div class="flex_row">
               <i class="material-icons md-18 icon material flight">airplanemode_active</i>
               <div class="flex_col">
-                <div class="main_text flight_airport">New York to Atlanta</div>
-                <div class="sub_text flight_date">Mon, Nov 26, 2:03 PM</div>
-              </div>
-              <div class="emissions">1,300 lbs CO2</div>
-              <i class="material-icons md-18">keyboard_arrow_down</i>
-            </div>
-          </div>
-
-          <div class="flight_container">
-            <div class="flex_row">
-              <i class="material-icons md-18 icon material flight">airplanemode_active</i>
-              <div class="flex_col">
-                <div class="main_text">Atlanta to New York</div>
+                <div class="main_text flight_airport">Atlanta to New York</div>
                 <div class="sub_text flight_date">Tue, Nov 20, 2:34 PM</div>
               </div>
               <div class="emissions">1,000 lbs CO2</div>
@@ -55,19 +43,7 @@
             <div class="flex_row">
               <i class="material-icons md-18 icon material flight">airplanemode_active</i>
               <div class="flex_col">
-                <div class="main_text">New York to Atlanta</div>
-                <div class="sub_text flight_date">Mon, Nov 26, 2:03 PM</div>
-              </div>
-              <div class="emissions">1,300 lbs CO2</div>
-              <i class="material-icons md-18">keyboard_arrow_down</i>
-            </div>
-          </div>
-
-          <div class="flight_container">
-            <div class="flex_row">
-              <i class="material-icons md-18 icon material flight">airplanemode_active</i>
-              <div class="flex_col">
-                <div class="main_text">Atlanta to New York</div>
+                <div class="main_text flight_airport">Atlanta to New York</div>
                 <div class="sub_text flight_date">Tue, Nov 20, 2:34 PM</div>
               </div>
               <div class="emissions">1,000 lbs CO2</div>
@@ -79,10 +55,34 @@
             <div class="flex_row">
               <i class="material-icons md-18 icon material flight">airplanemode_active</i>
               <div class="flex_col">
-                <div class="main_text">New York to Atlanta</div>
-                <div class="sub_text flight_date">Mon, Nov 26, 2:03 PM</div>
+                <div class="main_text flight_airport">Atlanta to New York</div>
+                <div class="sub_text flight_date">Tue, Nov 20, 2:34 PM</div>
               </div>
-              <div class="emissions">1,300 lbs CO2</div>
+              <div class="emissions">1,000 lbs CO2</div>
+              <i class="material-icons md-18">keyboard_arrow_down</i>
+            </div>
+          </div>
+
+          <div class="flight_container">
+            <div class="flex_row">
+              <i class="material-icons md-18 icon material flight">airplanemode_active</i>
+              <div class="flex_col">
+                <div class="main_text flight_airport">Atlanta to New York</div>
+                <div class="sub_text flight_date">Tue, Nov 20, 2:34 PM</div>
+              </div>
+              <div class="emissions">1,000 lbs CO2</div>
+              <i class="material-icons md-18">keyboard_arrow_down</i>
+            </div>
+          </div>
+
+          <div class="flight_container">
+            <div class="flex_row">
+              <i class="material-icons md-18 icon material flight">airplanemode_active</i>
+              <div class="flex_col">
+                <div class="main_text flight_airport">Atlanta to New York</div>
+                <div class="sub_text flight_date">Tue, Nov 20, 2:34 PM</div>
+              </div>
+              <div class="emissions">1,000 lbs CO2</div>
               <i class="material-icons md-18">keyboard_arrow_down</i>
             </div>
           </div>
@@ -95,9 +95,9 @@
               <div class="flex_col">
                 <div class="flex_row">
                   <div class="main_text">Total CO2 emissions</div>
-                  <div class="emissions">2,300 lbs CO2</div>
+                  <div class="total_emissions">2,300 lbs CO2</div>
                 </div>
-                <div class="sub_text">Equivalent to putting n cars on the road for a year</div>
+                <div class="total_emissions_equivalency sub_text">Equivalent to putting n cars on the road for a year</div>
               </div>
               <i class="material-icons md-18 arrow_icon total_emissions_arrow">keyboard_arrow_down</i>
             </div>
@@ -115,8 +115,8 @@
             <div class="flex_row">
                 <img src="images/trees_atlanta.jpg" class="icon image">
               <div class="flex_col">
-                <div class="main_text">Donate 10 trees to Trees Atlanta </div>
-                <div class="sub_text">1 tree offsets n lbs of CO2 </div>
+                <div class="main_text">Donate <span class="trees_num"></span> trees to Trees Atlanta </div>
+                <div class="sub_text">1 tree offsets 9,480 lbs of CO2 </div>
               </div>
               <i class="material-icons md-18 arrow_icon donate_arrow">keyboard_arrow_right</i>
             </div>
@@ -128,8 +128,8 @@
             <div class="flex_row">
               <img src="images/trees_atlanta.jpg" class="icon image">
               <div class="flex_col">
-                <div class="main_text">Volunteer n hours with X </div>
-                <div class="sub_text">1 hour offsets n lbs of CO2 </div>
+                <div class="main_text">Volunteer <span class="volunteer_num"></span> hours with Example Charity </div>
+                <div class="sub_text">1 hour offsets 2,000 lbs of CO2 </div>
               </div>
               <i class="material-icons md-18 arrow_icon donate_arrow">keyboard_arrow_right</i>
             </div>
@@ -187,6 +187,11 @@
       margin-right:10px;
     }
     .emissions {
+      margin-left:auto;
+      margin-right:5px;
+      justify-content:flex-end;
+    }
+    .total_emissions {
       margin-left:auto;
       margin-right:5px;
       justify-content:flex-end;
