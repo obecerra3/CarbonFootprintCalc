@@ -44,7 +44,7 @@ function scan_flight_data() {
 
         // Obtaining cabin type information
         let ticketClass = classifyClass($(trip_summary.find(".cabin-type")).text().trim());
-        console.log(ticketClass);
+
 
         // Obtaining destination and arrival airports of the overall flight
         let locations = flight_summary.find(".visible-phone");
