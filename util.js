@@ -2,7 +2,7 @@
 // rows represent the ticket class in the order of economy, economy plus,
 // business, first
 // cols represent the distance category in the order of long, medium, short
-var emissionFactors = [[0.14678, 0.16508, 0.27867],
+var emissionFactorsTable = [[0.14678, 0.16508, 0.27867],
                             [0.23484, 0.24761, null],
                             [0.42565, 0.24761, null],
                             [0.58711, 0.24761, null]];
@@ -74,8 +74,6 @@ function emissionCalc(flightProfile) {
     var aircraft = flightProfile._aircraft;
     var cabinType = flightProfile._ticketClass;
 
-
-
     // 1. Lookup lat/lng of start airport and end airport
     var depart = airports[iata1];
     var lon1 = depart["longitude"];
@@ -105,7 +103,7 @@ function emissionCalc(flightProfile) {
     // 6. Use ticket class and distance category (long haul, medium haul, short
     // haul) to lookup emissions factor
 
-    var emissionFactor = emissionFactors[cabinType][distCategory];
+    var emissionFactor = emissionFactorsTable[cabinType][distCategory];
 
     // 7. Multiply passenger-kilometers (passenger-km) with emissions factor
     // (kg CO2e / passenger-km) to calculate the amount of greenhouse gases
@@ -114,8 +112,6 @@ function emissionCalc(flightProfile) {
 
     // 8. Multiply greenhouse gases produced (kg CO2e) by 1.9 to account for
     // radiative forcing
-
     return Math.round(kg2lbs(greenhouseGasProduced * 1.9));
-
 }
 

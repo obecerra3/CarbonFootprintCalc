@@ -96,7 +96,6 @@ function buildFlights() {
 			console.log("New flights recieved " + response.newFlightsKey.length);
 			var flight_dates = $('.flight_date');
 			var flight_airports = $('.flight_airport');
-            var emissions = $('.emissions');
 			var flight_containers = $('.flight_container');
             var flight_emissions = $('.emissions');
             var total_emissions = $('.total_emissions');
@@ -110,11 +109,8 @@ function buildFlights() {
 					var flight_date = new Date(response.newFlightsKey[i]._date);
 					$(flight_dates[i]).html(buildFlightString(flight_date));
 					$(flight_airports[i]).html(response.newFlightsKey[i]._depart + " to " + response.newFlightsKey[i]._arrival);
-
                     $(flight_emissions[i]).html(carbonAmt + " lbs CO2e");
-
 					$(flight_containers[i]).show();
-
 				}
                 $(total_emissions[0]).html(totalCarbonAmt + " lbs CO2e");
                 generalizeCarbonContexts(totalCarbonAmt);
