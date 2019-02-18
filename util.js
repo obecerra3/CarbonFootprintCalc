@@ -96,10 +96,11 @@ function emissionCalc(flightProfile) {
     // 4. Lookup passenger capacity of airline model. Then multiply by 0.8 to
     // assume that the flight is 80% full
     // var numPassengers = aircrafts[""] * 0.8;
-    var numPassengers = 200 * 0.8; // Arbitrary set to 200 since no data yet
+    // var numPassengers = 200 * 0.8; // Arbitrary set to 200 since no data yet
 
     // 5. Calculate passenger-kilometers = totalDistance * numPassengers
-    var passengerKilo = totalDistance * numPassengers;
+    // var passengerKilo = totalDistance * numPassengers;
+    var passengerKilo = totalDistance;
 
     // 6. Use ticket class and distance category (long haul, medium haul, short
     // haul) to lookup emissions factor
