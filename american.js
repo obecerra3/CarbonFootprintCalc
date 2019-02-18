@@ -34,7 +34,6 @@ function scan_flight_data() {
         let min = Number(hr_min[1]);
         let time = hr.toString() + ":" + min.toString() + ":00";
 
-
         let flight_summary = $(trip_summary.find(".flight-summary"));
         // Obtaining flight date infomation
         let dates = $(flight_summary.find("h3")).text();
@@ -45,12 +44,10 @@ function scan_flight_data() {
         // Obtaining cabin type information
         let ticketClass = classifyClass($(trip_summary.find(".cabin-type")).text().trim());
 
-
         // Obtaining destination and arrival airports of the overall flight
         let locations = flight_summary.find(".visible-phone");
         let depart = $(locations[0]).text().trim();
         let arrival = $(locations[1]).text().trim();
-
 
         let flight_selectors = trip_summary.find(".flight-info");
         if (flight_selectors.length < 1) {
