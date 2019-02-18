@@ -97,7 +97,8 @@ function emissionCalc(flightProfile) {
     var numPassengers = 200 * 0.8; // Arbitrary set to 200 since no data yet
 
     // 5. Calculate passenger-kilometers = totalDistance * numPassengers
-    var passengerKilo = totalDistance * numPassengers;
+    // var passengerKilo = totalDistance * numPassengers;
+    var passengerKilo = totalDistance;
 
     // 6. Use ticket class and distance category (long haul, medium haul, short
     // haul) to lookup emissions factor
