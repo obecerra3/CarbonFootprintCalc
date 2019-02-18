@@ -49,7 +49,11 @@ function parseDate(dateStr, timeStr) {
 	let hour = parseInt(splitTime[0]);
 	let minute = parseInt(splitTime[1]);
 	if (splitTime[1].search("PM") != -1) {
-		hour += 12;
+		if (hour != 12) {
+			hour += 12;
+		}
+	} else if (hour === 12) {
+		hour = 0;
 	}
 	
 	let flightDate = new Date(year, month, day, hour, minute, 0, 0);
@@ -77,7 +81,7 @@ function pullFlightInfo() {
 		let flightDate = $(this).text();
 		var flightTime = null;
 		tripTimeElems.each(function(index2) {
-			if (index === 0) {
+			if (index2 === 0) {
 				flightTime = $(this).html();
 			}
 		});
