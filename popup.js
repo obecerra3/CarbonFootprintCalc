@@ -9,7 +9,11 @@ function buildFlightString(flight_date) {
         PM = true;
         flight_date.setHours(parseInt(flight_date.getHours()) - 12);
     }
-    flight_string += flight_date.getHours() + ":" + flight_date.getMinutes() + " ";
+	var minutesStr = flight_date.getMinutes() + "";
+	if (flight_date.getMinutes() < 10) {
+		minutesStr = "0" + minutesStr;
+	}
+    flight_string += flight_date.getHours() + ":" + minutesStr + " ";
     if (PM) {
         flight_string += "PM";
     } else {
