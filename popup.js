@@ -1,19 +1,25 @@
 
 
 function buildFlightString(flight_date) {
+	console.log(flight_date);
     var PM = false;
     var flight_string = parseDay(flight_date.getDay()) + ", ";
     flight_string += parseMonth(flight_date.getMonth()) + " ";
     flight_string += flight_date.getDate() + ", ";
+	var hoursStr = "";
     if (flight_date.getHours() > 12) {
         PM = true;
-        flight_date.setHours(parseInt(flight_date.getHours()) - 12);
-    }
+        hoursStr += flight_date.getHours() - 12;
+    } else if (flight_date.getHours() === 0) {
+		hoursStr += 12;
+	} else {
+		hoursStr += flight_date.getHours();
+	}
 	var minutesStr = flight_date.getMinutes() + "";
 	if (flight_date.getMinutes() < 10) {
 		minutesStr = "0" + minutesStr;
 	}
-    flight_string += flight_date.getHours() + ":" + minutesStr + " ";
+    flight_string += hoursStr + ":" + minutesStr + " ";
     if (PM) {
         flight_string += "PM";
     } else {
