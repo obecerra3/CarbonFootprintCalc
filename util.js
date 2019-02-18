@@ -102,7 +102,6 @@ function emissionCalc(flightProfile) {
 
     // 6. Use ticket class and distance category (long haul, medium haul, short
     // haul) to lookup emissions factor
-
     var emissionFactor = emissionFactorsTable[cabinType][distCategory];
 
     // 7. Multiply passenger-kilometers (passenger-km) with emissions factor
