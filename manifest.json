@@ -3,7 +3,6 @@
   "version": "1.0",
   "description": "Extension working to track user carbon footprint",
   "permissions": ["activeTab", "declarativeContent", "storage"],
-  "options_page": "options.html",
   "background": {
     "scripts": ["jquery-3.3.1.min.js", "background.js"],
     "persistent": false
