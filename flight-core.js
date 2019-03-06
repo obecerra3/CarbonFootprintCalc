@@ -154,6 +154,11 @@ class FlightProfile {
 
 }
 
+function allFlightsCreated() {
+	console.log("Notified all flights created");
+	chrome.runtime.sendMessage({task: 'notify'}, function(response) {});
+}
+
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
 	if (message.task === 'flights') {
 		var flights = [];
@@ -164,4 +169,4 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
 		console.log("Sending new flights");
 		sendResponse({newFlightsKey: flights});
 	}
-})
+});

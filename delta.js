@@ -164,6 +164,8 @@ function pullFlightInfo() {
 	for (i = 0; i < flightDates.length; i += 1) {
 		flights.push(new FlightProfile(flightNos[i], flightDepart[i], flightArrive[i], flightDates[i], "delta", flightAircrafts[i], flightClasses[i]));
 	}
+	
+	allFlightsCreated();
 }
 
 $(window).bind("load", pullFlightInfo);

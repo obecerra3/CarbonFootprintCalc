@@ -21,11 +21,16 @@ chrome.runtime.onInstalled.addListener(function() {
   });
 });
 
-chrome.runtime.onMessage.addListener(
-function(request, sender, sendResponse) {
-    chrome.storage.local.set({flightProfiles: request.flightProfiles}, function() {
-      console.log('flightProfiles stored');
-    });
+chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+	if (message.task === 'notify') {
+		console.log("Displaying notification");
+		//sendResponse({newFlightsKey: flights});
+		chrome.notifications.create('test_id', {type: 'basic', iconUrl: 'images/get_started48.png', title: 'Test', message: 'This is a test'}, function(id) {});
+	}
 });
 
-
+chrome.notifications.onClicked.addListener(function(id) {
+	if (id === 'test_id') {
+		// not allowed to open popup programatically
+	}
+});
