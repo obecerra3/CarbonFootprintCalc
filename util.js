@@ -69,6 +69,7 @@ function categorizeDistance(dist) {
  * @return {number} the carbon emission by the passenger in kg CO2e
  */
 function emissionCalc(flightProfile) {
+    var calculation_steps = "";
     var iata1 = flightProfile._depart;
     var iata2 = flightProfile._arrival;
     var aircraft = flightProfile._aircraft;
@@ -86,7 +87,6 @@ function emissionCalc(flightProfile) {
     // account for additional flight length due to rerouting of planes, holding
     // patterns, etc
     var totalDistance = greatCircleDistance(lat1, lon1, lat2, lon2) * 1.08;
-
     // 3. Categorize total distance as long haul (>3,700 km), medium haul
     // (463-3,700 km), or short haul (<463 km)
     var distCategory = categorizeDistance(totalDistance);
@@ -108,9 +108,9 @@ function emissionCalc(flightProfile) {
     // (kg CO2e / passenger-km) to calculate the amount of greenhouse gases
     // produced (kg CO2e)
     var greenhouseGasProduced = passengerKilo * emissionFactor;
-
+    calculation_steps = calculation_steps + String(totalDistance) + " * 1.08 * " + String(emissionFactor);
     // 8. Multiply greenhouse gases produced (kg CO2e) by 1.9 to account for
     // radiative forcing
-    return Math.round(kg2lbs(greenhouseGasProduced * 1.9));
+    return {"value": Math.round(kg2lbs(greenhouseGasProduced * 1.9)), "calc_steps": calculation_steps};
 }
 

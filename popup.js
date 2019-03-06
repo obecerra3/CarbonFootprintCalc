@@ -104,7 +104,9 @@ function buildFlights() {
 				$('.no_flights').hide();
 				for (var i = 0; i < response.newFlightsKey.length; i++) {
 					console.log(response.newFlightsKey[i]._date);
-                    var carbonAmt = emissionCalc(response.newFlightsKey[i]);
+                    var calculation = emissionCalc(response.newFlightsKey[i]);
+                    var carbonAmt = calculation["value"];
+                    var calc_step = calculation["calc_steps"]
                     totalCarbonAmt += carbonAmt;
 					var flight_date = new Date(response.newFlightsKey[i]._date);
 					$(flight_dates[i]).html(buildFlightString(flight_date));
