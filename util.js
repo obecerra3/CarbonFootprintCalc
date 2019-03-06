@@ -3,9 +3,9 @@
 // business, first
 // cols represent the distance category in the order of long, medium, short
 var emissionFactorsTable = [[0.14678, 0.16508, 0.27867],
-                            [0.23484, 0.24761, null],
-                            [0.42565, 0.24761, null],
-                            [0.58711, 0.24761, null]];
+                            [0.23484, 0.24761, 0.27867],
+                            [0.42565, 0.24761, 0.27867],
+                            [0.58711, 0.24761, 0.27867]];
 
 /**
  * Converts angle in degrees to radians
