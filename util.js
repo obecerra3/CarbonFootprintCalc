@@ -111,6 +111,7 @@ function emissionCalc(flightProfile) {
     calculation_steps = calculation_steps + String(totalDistance) + " * 1.08 * " + String(emissionFactor);
     // 8. Multiply greenhouse gases produced (kg CO2e) by 1.9 to account for
     // radiative forcing
-    return {"value": Math.round(kg2lbs(greenhouseGasProduced * 1.9)), "calc_steps": calculation_steps};
+    return {"value": Math.round(kg2lbs(greenhouseGasProduced * 1.9)), "calc_steps": calculation_steps,
+    "distance": totalDistance, "emissionFactor": emissionFactor};
 }
 

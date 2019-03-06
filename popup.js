@@ -99,6 +99,11 @@ function buildFlights() {
 			var flight_containers = $('.flight_container');
             var flight_emissions = $('.emissions');
             var total_emissions = $('.total_emissions');
+            var formula_distances = $('.formula_distance');
+            var formula_percents = $('.formula_percent');
+            var formula_emission_factors = $('.formula_emission_factor');
+            var formula_results = $('.formula_result');
+
             var totalCarbonAmt = 0;
 			if (response != undefined) {
 				$('.no_flights').hide();
@@ -106,13 +111,22 @@ function buildFlights() {
 					console.log(response.newFlightsKey[i]._date);
                     var calculation = emissionCalc(response.newFlightsKey[i]);
                     var carbonAmt = calculation["value"];
-                    var calc_step = calculation["calc_steps"]
+                    var distance = Math.round(calculation["distance"] * 100) / 100;
+                    var emissionFactor = calculation["emissionFactor"];
                     totalCarbonAmt += carbonAmt;
 					var flight_date = new Date(response.newFlightsKey[i]._date);
 					$(flight_dates[i]).html(buildFlightString(flight_date));
 					$(flight_airports[i]).html(response.newFlightsKey[i]._depart + " to " + response.newFlightsKey[i]._arrival);
                     $(flight_emissions[i]).html(carbonAmt + " lbs CO2e");
 					$(flight_containers[i]).show();
+                    var formula = String(distance) + " km ";
+                    $(formula_distances[i]).html(formula);
+                    formula += " * 1.08";
+                    $(formula_percents[i]).html(formula);
+                    formula += " * " + String(emissionFactor);
+                    $(formula_emission_factors[i]).html(formula);
+                    formula += " = " + carbonAmt + " lbs CO2e";
+                    $(formula_results[i]).html(formula);
 				}
                 $(total_emissions[0]).html(totalCarbonAmt + " lbs CO2e");
                 generalizeCarbonContexts(totalCarbonAmt);
@@ -124,7 +138,7 @@ function buildFlights() {
 // Info taken from epa.gov
 // https://www.epa.gov/energy/greenhouse-gases-equivalencies-calculator-calculations-and-references
 var equivalencies = [["a car on the road for ", 1.1, " miles."],
-    ["", 0.496, " pounds of coal burned."],
+    ["", 1/10376, " cars on the road for a year."],
     ["", 57.8, " smartphones charged."]];
 
 function generalizeCarbonContexts(totalCarbonAmt) {
@@ -140,11 +154,15 @@ function generalizeCarbonContexts(totalCarbonAmt) {
     // 1 tree = 9,480 lbs of CO2
     $(".trees_num").html((totalCarbonAmt/9480).toFixed(2));
 
-    // Volunteer Example Charity
-    // 1 hour = 2,000 lbs of CO2
-    $(".volunteer_num").html((totalCarbonAmt/2000).toFixed(2));
+    // Dollar Example Charity
+    // 1 dollar = 2,000 lbs of CO2
+    $(".dollar_num").html((totalCarbonAmt/2000).toFixed(2));
 }
 
+
 $(document).ready(() => {
-  buildFlights();
+    buildFlights();
+    $(".emissions_container").click(function() {
+      jQuery(this).children(".formula_container").toggle();
+    });
 });
