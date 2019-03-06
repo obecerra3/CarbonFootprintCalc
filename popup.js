@@ -117,7 +117,7 @@ function buildFlights() {
 					var flight_date = new Date(response.newFlightsKey[i]._date);
 					$(flight_dates[i]).html(buildFlightString(flight_date));
 					$(flight_airports[i]).html(response.newFlightsKey[i]._depart + " to " + response.newFlightsKey[i]._arrival);
-                    $(flight_emissions[i]).html(carbonAmt + " lbs CO2e");
+                    $(flight_emissions[i]).html(carbonAmt + " lbs CO<sub>2</sub>e");
 					$(flight_containers[i]).show();
                     var formula = String(distance) + " km ";
                     $(formula_distances[i]).html(formula);
@@ -125,10 +125,14 @@ function buildFlights() {
                     $(formula_percents[i]).html(formula);
                     formula += " * " + String(emissionFactor);
                     $(formula_emission_factors[i]).html(formula);
-                    formula += " = " + carbonAmt + " lbs CO2e";
+                    formula += " = " + carbonAmt + " lbs CO<sub>2</sub>e";
                     $(formula_results[i]).html(formula);
 				}
-                $(total_emissions[0]).html(totalCarbonAmt + " lbs CO2e");
+                $(total_emissions[0]).html(totalCarbonAmt + ' lbs <a href="https://en.wikipedia.org/wiki/Carbon_dioxide_equivalent">CO<sub>2</sub>e</a>');
+                $(total_emissions[0]).on('click', 'a', function() {
+                    chrome.tabs.create({url: $(this).attr('href')});
+                    return false;
+                });
                 generalizeCarbonContexts(totalCarbonAmt);
 			}
 		});
