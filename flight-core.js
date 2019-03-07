@@ -168,5 +168,8 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
 		console.log(flights);
 		console.log("Sending new flights");
 		sendResponse({newFlightsKey: flights});
+	} else if (message.task === 'clear_flights') {
+		newFlights = [];
+		sendResponse({farewell: 'All done'});
 	}
 });
