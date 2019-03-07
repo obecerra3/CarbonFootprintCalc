@@ -79,6 +79,8 @@ function scan_flight_data() {
         }
 
     }
+	
+	allFlightsCreated();
 }
 
 $(document).ready(scan_flight_data)
