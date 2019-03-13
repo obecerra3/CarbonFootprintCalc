@@ -166,10 +166,10 @@
           <hr />
 
           <div class="total_emissions_container emissions_container">
-            <div class="flex_row">
+            <div class="flex_row_non_expandable">
               <i class="material-icons md-18 icon material total">account_balance</i>
               <div class="flex_col">
-                <div class="flex_row">
+                <div class="flex_row_non_expandable">
                   <div class="main_text">Total CO<sub>2</sub> emissions</div>
                   <div class="total_emissions"></div>
                 </div>
@@ -235,6 +235,15 @@
       display:flex;
       flex-direction:row;
       align-items:center;
+      cursor: pointer;
+    }
+    .flex_row_non_expandable {
+      display:flex;
+      flex-direction:row;
+      align-items:center;
+    }
+    .flex_row:hover {
+      background-color: #D3D3D3;
     }
     .flex_col {
       display:flex;
