@@ -10,19 +10,19 @@
   "content_scripts": [
     {
       "matches": ["*://www.united.com/ual/en/us/flight-search/book-a-flight/reviewflight/rev/*"],
-      "js": ["jquery-3.3.1.min.js", "flight-core.js", "united.js"]
+      "js": ["jquery-3.3.1.min.js", "data.js", "flight-core.js", "united.js"]
     },
     {
       "matches": ["https://www.southwest.com/air/booking/price.html*"],
-      "js": ["jquery-3.3.1.min.js", "flight-core.js", "southwest.js"]
+      "js": ["jquery-3.3.1.min.js", "data.js", "flight-core.js", "southwest.js"]
     },
     {
       "matches": ["https://www.delta.com/cart/activity/tripsummary.action*"],
-      "js": ["jquery-3.3.1.min.js",  "flight-core.js", "delta.js"]
+      "js": ["jquery-3.3.1.min.js",  "data.js", "flight-core.js", "delta.js"]
     },
     {
       "matches": [ "*://www.aa.com/booking/flights/choose-flights/your-trip-summary*" ],
-      "js": ["jquery-3.3.1.min.js",  "flight-core.js", "american.js"]
+      "js": ["jquery-3.3.1.min.js",  "data.js", "flight-core.js", "american.js"]
     }
   ],
   "page_action": {

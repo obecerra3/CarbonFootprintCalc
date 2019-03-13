@@ -11,7 +11,7 @@ chrome.runtime.onInstalled.addListener(function() {
         pageUrl: {hostEquals: 'www.united.com'},
       }),
       new chrome.declarativeContent.PageStateMatcher({
-        pageUrl: {urlContains: 'www.aa.com/booking/flights/choose-flights/your-trip-summary'},
+        pageUrl: {hostEquals: 'www.aa.com'},
       }),
       new chrome.declarativeContent.PageStateMatcher({
         pageUrl: {hostEquals: 'www.southwest.com'},

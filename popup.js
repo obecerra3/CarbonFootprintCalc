@@ -108,27 +108,20 @@ function buildFlights() {
 			if (response != undefined) {
 				$('.no_flights').hide();
 				for (var i = 0; i < response.newFlightsKey.length; i++) {
-					console.log(response.newFlightsKey[i]._date);
-                    var calculation = emissionCalc(response.newFlightsKey[i]);
-                    var carbonAmt = calculation["value"];
-                    var distance = Math.round(calculation["distance"] * 100) / 100;
-                    var emissionFactor = calculation["emissionFactor"];
+					var flightProfile = response.newFlightsKey[i]
+                    var carbonAmt = flightProfile._carbonVal;
                     totalCarbonAmt += carbonAmt;
-					var flight_date = new Date(response.newFlightsKey[i]._date);
+					var flight_date = new Date(flightProfile._date);
 					$(flight_dates[i]).html(buildFlightString(flight_date));
-					$(flight_airports[i]).html(response.newFlightsKey[i]._depart + " to " + response.newFlightsKey[i]._arrival);
+					$(flight_airports[i]).html(flightProfile._depart + " to " + flightProfile._arrival);
                     $(flight_emissions[i]).html(carbonAmt + " lbs CO<sub>2</sub>e");
 					$(flight_containers[i]).show();
-                    var formula = String(distance) + " km ";
-                    $(formula_distances[i]).html(formula);
-                    formula += " * 1.08";
-                    $(formula_percents[i]).html(formula);
-                    formula += " * " + String(emissionFactor);
-                    $(formula_emission_factors[i]).html(formula);
-                    formula += " = " + carbonAmt + " lbs CO<sub>2</sub>e";
-                    $(formula_results[i]).html(formula);
+                    $(formula_distances[i]).html(flightProfile._calcSteps[0]);
+                    $(formula_percents[i]).html(flightProfile._calcSteps[1]);
+                    $(formula_emission_factors[i]).html(flightProfile._calcSteps[2]);
+                    $(formula_results[i]).html(flightProfile._calcSteps[3]);
 				}
-                $(total_emissions[0]).html(totalCarbonAmt + ' lbs <a href="https://en.wikipedia.org/wiki/Carbon_dioxide_equivalent">CO<sub>2</sub>e</a>');
+                $(total_emissions[0]).html(totalCarbonAmt + ' lbs CO<sub>2</sub>e');
                 $(total_emissions[0]).on('click', 'a', function() {
                     chrome.tabs.create({url: $(this).attr('href')});
                     return false;
