@@ -122,10 +122,6 @@ function buildFlights() {
                     $(formula_results[i]).html(flightProfile._calcSteps[3]);
 				}
                 $(total_emissions[0]).html(totalCarbonAmt + ' lbs CO<sub>2</sub>e');
-                $(total_emissions[0]).on('click', 'a', function() {
-                    chrome.tabs.create({url: $(this).attr('href')});
-                    return false;
-                });
                 generalizeCarbonContexts(totalCarbonAmt);
 			}
 		});
