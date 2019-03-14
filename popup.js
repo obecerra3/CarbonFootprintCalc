@@ -89,40 +89,59 @@ function buildFlights() {
     // Queries the right tab, sends out task which is currently picked up by
     // listener in united.js, which responds with the flight data.
     // Dom then is directly manipulated using jquery of the popup.
+	
+	var urls = [];
+	var contentScriptArrs = chrome.runtime.getManifest().content_scripts;
+	for (var i = 0; i < contentScriptArrs.length; i += 1) {
+		for (var j = 0; j < contentScriptArrs[i].matches.length; j += 1) {
+			var match_url = contentScriptArrs[i].matches[j];
+			urls.push(match_url.substring(1, match_url.length - 1));
+		}
+	}
+	
     chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
-        const tab = tabs[0];
-        const url = tab.url;
-		chrome.tabs.sendMessage(tab.id, {task: 'flights'}, function(response) {
-			console.log("New flights recieved " + response.newFlightsKey.length);
-			var flight_dates = $('.flight_date');
-			var flight_airports = $('.flight_airport');
-			var flight_containers = $('.flight_container');
-            var flight_emissions = $('.emissions');
-            var total_emissions = $('.total_emissions');
-            var formula_distances = $('.formula_distance');
-            var formula_percents = $('.formula_percent');
-            var formula_emission_factors = $('.formula_emission_factor');
-            var formula_results = $('.formula_result');
-
-            var totalCarbonAmt = 0;
-			if (response != undefined) {
-				$('.no_flights').hide();
-				for (var i = 0; i < response.newFlightsKey.length; i++) {
-					var flightProfile = response.newFlightsKey[i]
-                    var carbonAmt = flightProfile._carbonVal;
-                    totalCarbonAmt += carbonAmt;
-					var flight_date = new Date(flightProfile._date);
-					$(flight_dates[i]).html(buildFlightString(flight_date));
-					$(flight_airports[i]).html(flightProfile._depart + " to " + flightProfile._arrival);
-                    $(flight_emissions[i]).html(carbonAmt + " lbs CO<sub>2</sub>e");
-					$(flight_containers[i]).show();
-                    $(formula_distances[i]).html(flightProfile._calcSteps[0]);
-                    $(formula_percents[i]).html(flightProfile._calcSteps[1]);
-                    $(formula_emission_factors[i]).html(flightProfile._calcSteps[2]);
-                    $(formula_results[i]).html(flightProfile._calcSteps[3]);
+		tabs.forEach(function(tab) {
+			const url = tab.url;
+			var match = false;
+			urls.forEach(function(u) {
+				if (url.match(u)) {
+					match = true;
 				}
-                $(total_emissions[0]).html(totalCarbonAmt + ' lbs CO<sub>2</sub>e');
-                generalizeCarbonContexts(totalCarbonAmt);
+			});
+			if (match) {
+				chrome.tabs.sendMessage(tab.id, {task: 'flights'}, function(response) {
+					console.log("New flights recieved " + response.newFlightsKey.length);
+					var flight_dates = $('.flight_date');
+					var flight_airports = $('.flight_airport');
+					var flight_containers = $('.flight_container');
+					var flight_emissions = $('.emissions');
+					var total_emissions = $('.total_emissions');
+					var formula_distances = $('.formula_distance');
+					var formula_percents = $('.formula_percent');
+					var formula_emission_factors = $('.formula_emission_factor');
+					var formula_results = $('.formula_result');
+
+					var totalCarbonAmt = 0;
+					if (response != undefined) {
+						$('.no_flights').hide();
+						for (var i = 0; i < response.newFlightsKey.length; i++) {
+							var flightProfile = response.newFlightsKey[i]
+							var carbonAmt = flightProfile._carbonVal;
+							totalCarbonAmt += carbonAmt;
+							var flight_date = new Date(flightProfile._date);
+							$(flight_dates[i]).html(buildFlightString(flight_date));
+							$(flight_airports[i]).html(flightProfile._depart + " to " + flightProfile._arrival);
+							$(flight_emissions[i]).html(carbonAmt + " lbs CO<sub>2</sub>e");
+							$(flight_containers[i]).show();
+							$(formula_distances[i]).html(flightProfile._calcSteps[0]);
+							$(formula_percents[i]).html(flightProfile._calcSteps[1]);
+							$(formula_emission_factors[i]).html(flightProfile._calcSteps[2]);
+							$(formula_results[i]).html(flightProfile._calcSteps[3]);
+						}
+						$(total_emissions[0]).html(totalCarbonAmt + ' lbs CO<sub>2</sub>e');
+						generalizeCarbonContexts(totalCarbonAmt);
+					}
+				});
 			}
 		});
 	});

@@ -1,5 +1,5 @@
 {
-  "name": "Carbon Footprint Tool",
+  "name": "Fly Aware",
   "version": "1.0",
   "description": "Extension working to track user carbon footprint",
   "permissions": ["activeTab", "declarativeContent", "storage", "notifications"],
@@ -25,7 +25,8 @@
       "js": ["jquery-3.3.1.min.js",  "data.js", "flight-core.js", "american.js"]
     }
   ],
-  "page_action": {
+  "browser_action": {
+	"default_title": "Fly Aware",
     "default_popup": "popup.html",
     "default_icon": {
       "16": "images/icon16.png",
