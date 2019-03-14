@@ -26,7 +26,7 @@ var notificationId = 'flights_loaded_notifiction_id';
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
 	if (message.task === 'notify') {
 		console.log("Displaying notification");
-		var properties = {type: 'basic', title: 'Flights Detected!', iconUrl: 'images/icon48.png', buttons: [{title: 'Okay'}, {title: 'Dismiss Flights'}], message: 'Carbon Footprint Calculator has found flights! Open the extension to view them.'}
+		var properties = {type: 'basic', title: 'Flights Detected!', iconUrl: 'images/icon48.png', buttons: [{title: 'Okay'}, {title: 'Dismiss Flights'}], message: 'Fly Aware has found flights! Open the extension to view them.', priority: 1};
 		chrome.notifications.create(notificationId, properties, function(id) {});
 	}
 });
