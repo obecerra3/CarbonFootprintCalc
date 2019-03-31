@@ -173,7 +173,6 @@ class FlightProfile {
 		return this._arrival;
 	}
 
-
 	get date() {
 		return this._date;
 	}
@@ -207,6 +206,17 @@ class FlightProfile {
 function allFlightsCreated() {
 	console.log("Notified all flights created");
 	chrome.runtime.sendMessage({task: 'notify'}, function(response) {});
+
+	//store flights
+	var flights = [];
+	for (let flight of newFlights) {
+		//Due to a bug in chrome.storage we need to convert Date objects to strings before storing
+		flight._date = flight._date.toString();
+		flights.push(flight);
+	}
+    chrome.storage.local.set({newFlightsKey: flights}, function() {
+        console.log('Stored flights key');
+    });
 }
 
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
@@ -218,6 +228,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
 		console.log(flights);
 		console.log("Sending new flights");
 		sendResponse({newFlightsKey: flights});
+
 	} else if (message.task === 'clear_flights') {
 		newFlights = [];
 		sendResponse({farewell: 'All done'});
