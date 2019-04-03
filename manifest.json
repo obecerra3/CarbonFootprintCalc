@@ -2,7 +2,7 @@
   "name": "Fly Aware",
   "version": "1.0",
   "description": "Extension working to track user carbon footprint",
-  "permissions": ["activeTab", "declarativeContent", "storage", "notifications"],
+  "permissions": ["activeTab", "declarativeContent", "storage", "notifications", "geolocation"],
   "background": {
     "scripts": ["jquery-3.3.1.min.js", "background.js"],
     "persistent": false

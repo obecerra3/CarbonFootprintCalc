@@ -183,9 +183,21 @@ function generalizeCarbonContexts(totalCarbonAmt) {
     $(".dollar_num").html((totalCarbonAmt/2000).toFixed(2));
 }
 
+function getLocation() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(showPosition);
+    } else {
+        console.log("location unavailable");
+    }
+}
+function showPosition(position) {
+    console.log("Latitude: " + position.coords.latitude +
+    " Longitude: " + position.coords.longitude);
+}
 
 $(document).ready(() => {
     buildFlights();
+    getLocation();
     $(".emissions_container").click(function() {
       jQuery(this).children(".formula_container").toggle();
     });
