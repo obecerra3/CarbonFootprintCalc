@@ -1,4 +1,10 @@
 function populateExtension(response) {
+    for (var i = 0; i < response.newFlightsKey.length; i++) {
+        createFlightContainer();
+    }
+    $('#flight_info').append('<hr />')
+    createTotalEmissionContainer();
+
     var flight_dates = $('.flight_date');
     var flight_airports = $('.flight_airport');
     var flight_containers = $('.flight_container');
@@ -27,7 +33,56 @@ function populateExtension(response) {
         $(formula_results[i]).html(flightProfile._calcSteps[3]);
     }
     $(total_emissions[0]).html(totalCarbonAmt + ' lbs CO<sub>2</sub>e');
+    $(".emissions_container").click(function() {
+      jQuery(this).children(".formula_container").toggle();
+    });
+
     generalizeCarbonContexts(totalCarbonAmt);
+}
+
+function createFlightContainer() {
+    $('#flight_info').append(
+        '<div class="flight_container emissions_container">' +
+            '<div class="flex_row">' +
+              '<i class="material-icons md-18 icon material flight">airplanemode_active</i>' +
+              '<div class="flex_col">' +
+                '<div class="main_text flight_airport"></div>' +
+                '<div class="sub_text flight_date"></div>' +
+              '</div>' +
+              '<div class="emissions"></div>' +
+              '<i class="material-icons md-18">keyboard_arrow_down</i>' +
+            '</div>' +
+            '<div class ="formula_container">' +
+              '<hr />' +
+              '<div>Our formula relies on 3 main components.</div><br />' +
+              '<div>We first have the distance our flight flies: </div><br />' +
+              '<div class="formula_distance main_text"></div><br />' +
+              '<div>We then add 8% on top to account for extra flight time: </div><br />' +
+              '<div class="formula_percent main_text"></div><br />' +
+              '<div>Finally, we use an emissions factor based on flight class and distance: </div><br />' +
+              '<div class="formula_emission_factor main_text"></div><br />' +
+              '<div>Now we have our calculated emissions number.</div><br />' +
+              '<div class="formula_result main_text"></div><br />' +
+              '<hr />' +
+            '</div>' +
+          '</div>')
+}
+
+function createTotalEmissionContainer() {
+    $('#flight_info').append(
+        '<div class="total_emissions_container emissions_container">' +
+            '<div class="flex_row_non_expandable">' +
+              '<i class="material-icons md-18 icon material total">account_balance</i>' +
+              '<div class="flex_col">' +
+                '<div class="flex_row_non_expandable">' +
+                  '<div class="main_text">Total CO<sub>2</sub> emissions</div>' +
+                  '<div class="total_emissions"></div>' +
+                '</div>' +
+                '<div class="total_emissions_equivalency sub_text">Equivalent to putting n cars on the road for a year</div>' +
+              '</div>' +
+              '<!--<i class="material-icons md-18 arrow_icon total_emissions_arrow">keyboard_arrow_down</i>-->' +
+            '</div>' +
+          '</div>')
 }
 
 function buildFlightString(flight_date) {
@@ -198,7 +253,4 @@ function showPosition(position) {
 $(document).ready(() => {
     buildFlights();
     getLocation();
-    $(".emissions_container").click(function() {
-      jQuery(this).children(".formula_container").toggle();
-    });
 });
