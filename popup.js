@@ -4,7 +4,7 @@ function populateExtension(response) {
     }
     $('#flight_info').append('<hr />')
     createTotalEmissionContainer();
-
+    // getLocation();
     var flight_dates = $('.flight_date');
     var flight_airports = $('.flight_airport');
     var flight_containers = $('.flight_container');
@@ -65,7 +65,7 @@ function createFlightContainer() {
               '<div class="formula_result main_text"></div><br />' +
               '<hr />' +
             '</div>' +
-          '</div>')
+          '</div>');
 }
 
 function createTotalEmissionContainer() {
@@ -82,8 +82,26 @@ function createTotalEmissionContainer() {
               '</div>' +
               '<!--<i class="material-icons md-18 arrow_icon total_emissions_arrow">keyboard_arrow_down</i>-->' +
             '</div>' +
-          '</div>')
+          '</div>');
 }
+
+// function createCharity(state) {
+//     for (var i = 0; i < state.length; i++) {
+//         $("#charity_list").append(
+//           '<a href=' + state["link"] + ' target="_blank">' +
+//             '<div class="donate_button">' +
+//               '<div class="flex_row">' +
+//                   '<img src=' + state["img_src"] + ' class="icon image">' +
+//                 '<div class="flex_col">' +
+//                 state["flex_col"] +
+//                 '</div>' +
+//                 '<i class="material-icons md-18 arrow_icon donate_arrow">keyboard_arrow_right</i>' +
+//               '</div>' +
+//             '</div>' +
+//           '</a>' +
+//           '<br />');
+//     }
+// }
 
 function buildFlightString(flight_date) {
     var PM = false;
@@ -167,7 +185,6 @@ function parseDay(dayStr) {
     return -1;
 }
 
-
 function buildFlights() {
     // Chrome magic
     // Queries the right tab, sends out task which is currently picked up by
@@ -220,6 +237,33 @@ var equivalencies = [["a car on the road for ", 1.1, " miles."],
     ["", 1/10376, " cars on the road for a year."],
     ["", 57.8, " smartphones charged."]];
 
+// var georgia = [
+//     {"link": "https://treesatlanta.org/",
+//     "img_src": "images/trees_atlanta.jpg",
+//     "flex_col": '<div class="main_text">Donate <span class="trees_num"></span> trees to Trees Atlanta </div>' +
+//                 '<div class="sub_text">1 tree offsets 9,480 lbs of CO<sub>2</sub> </div>'},
+//     {"link": "https://gff.givingfuel.com/georgia-forestry-foundation",
+//     "img_src": "images/georgia_forestry_foundation.jpg",
+//     "flex_col": '<div class="main_text">Donate $<span class="dollar_num"></span> to Georgia Forestry Foundation </div>' +
+//                 '<div class="sub_text">1 dollar offsets 2,000 lbs of CO<sub>2</sub> </div>'},
+//     {"link": "http://www.gufc.org/donate-to-gufc-operations-and-receive-a-tree-print-as-our-thank-you/",
+//     "img_src": "images/georgia_urban_forest_council.jpg",
+//     "flex_col": '<div class="main_text">Donate $<span class="dollar_num"></span> to Georgia Urban Forest Council </div>' +
+//                 '<div class="sub_text">1 dollar offsets 2,000 lbs of CO<sub>2</sub> </div>'}
+//     ];
+
+// var other_state = [
+//     {"link": "https://treesatlanta.org/",
+//     "img_src": "images/trees_atlanta.jpg",
+//     "flex_col": '<div class="main_text">Donate <span class="trees_num"></span> trees to Trees Atlanta </div>' +
+//                 '<div class="sub_text">1 tree offsets 9,480 lbs of CO<sub>2</sub> </div>'},
+//     {"link": "https://treesatlanta.org/",
+//     "img_src": "images/trees_atlanta.jpg",
+//     "flex_col": '<div class="main_text">Donate <span class="trees_num"></span> trees to Trees Atlanta </div>' +
+//                 '<div class="sub_text">1 tree offsets 9,480 lbs of CO<sub>2</sub> </div>'}
+//     ];
+
+
 function generalizeCarbonContexts(totalCarbonAmt) {
     // Total Emissions Equivalency
     var equivalency_string = "Equivalent to ";
@@ -238,19 +282,27 @@ function generalizeCarbonContexts(totalCarbonAmt) {
     $(".dollar_num").html((totalCarbonAmt/2000).toFixed(2));
 }
 
-function getLocation() {
-    if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(showPosition);
-    } else {
-        console.log("location unavailable");
-    }
-}
-function showPosition(position) {
-    console.log("Latitude: " + position.coords.latitude +
-    " Longitude: " + position.coords.longitude);
-}
+// function getLocation() {
+//     if (navigator.geolocation) {
+//         navigator.geolocation.getCurrentPosition(classifyState);
+//     } else {
+//         console.log("location unavailable");
+//         createCharity(other_state);
+
+//     }
+// }
+// function classifyState(position) {
+//     var lat = position.coords.latitude;
+//     var lon = position.coords.longitude;
+//     console.log("Latitude: " + lat + " Longitude: " + lon);
+//     if (lat >= 31 && lat <= 35 && lon >= - 85 && lon <= -81) {
+//         createCharity(georgia);
+//     } else {
+//         createCharity(other_state);
+//     }
+
+// }
 
 $(document).ready(() => {
     buildFlights();
-    getLocation();
 });
