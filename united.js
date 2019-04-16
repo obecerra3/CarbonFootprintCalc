@@ -72,7 +72,6 @@ function pull_flight_info() {
 
 		var hours = time_info[0];
 		var minutes = time_info[1];
-		alert(year + " " + month + " " + day + " " + hours + " " + minutes);
 		var flight_date = new Date(year, month, day, hours, minutes);
 
 		// Pick up Airline name
@@ -96,7 +95,7 @@ function pull_flight_info() {
 
 		flights.push(new FlightProfile(flight_number, depart_code, arrive_code, flight_date, airline, aircraft, ticket_class));
 	}
-	
+
 	allFlightsCreated();
 }
 $(document).ready(pull_flight_info);
