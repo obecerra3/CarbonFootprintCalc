@@ -2,6 +2,28 @@
 
 var notificationId = 'flights_loaded_notifiction_id';
 
+chrome.runtime.onInstalled.addListener(function() {
+	if (navigator.geolocation) {
+		navigator.geolocation.getCurrentPosition(function(position){
+			let lat = position.coords.latitude;
+			let lon = position.coords.longitude;
+			console.log("Latitude: " + lat + " Longitude: " + lon);
+			if (lat >= 31 && lat <= 35 && lon >= -85 && lon <= -81) {
+				console.log("Saving location as GA");
+				chrome.storage.local.set({'state': "ga"});
+			} else {
+				console.log("Saving location as Default");
+				chrome.storage.local.set({'state': "default"});
+			}
+		});
+	} else {
+		console.log("Failed to obtain GPS location");
+		console.log("Saving location as Default");
+		chrome.storage.local.set({'state': "Default"});
+	}
+
+});
+
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
 	if (message.task === 'notify') {
 		console.log("Displaying notification");
