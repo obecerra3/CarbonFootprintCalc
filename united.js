@@ -95,7 +95,7 @@ function pull_flight_info() {
 
 		flights.push(new FlightProfile(flight_number, depart_code, arrive_code, flight_date, airline, aircraft, ticket_class));
 	}
-	
+
 	allFlightsCreated();
 }
 $(document).ready(pull_flight_info);
