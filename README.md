@@ -6,11 +6,11 @@ Spring 2019 Georgia Tech Junior Design project for a carbon footprint calculator
 - Added drop down displaying step by step calculations
 - Added geolocation detection to change charity options based on user's location
 - Added charity options for Georgia users
-- Added desktop notification when the flight information is detected  
+- Added desktop notification when the flight information is detected
 - Removed dependency on Vue.js
 
 ### BUG FIXES
-
+- Chrome Extension updated to accomodate the change in Delta website
 
 
 ### KNOWN BUGS
